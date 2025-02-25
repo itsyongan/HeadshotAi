@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function ImageUploader() {
   const [files, setFiles] = useState([]);
@@ -57,6 +58,35 @@ export default function ImageUploader() {
     if (size > 1048576) return Math.round(size / 1048576) + "mb";
     if (size > 1024) return Math.round(size / 1024) + "kb";
     return size + "b";
+  };
+
+  // This is where you handle the actual "upload" action
+  const handleUpload = async () => {
+    // 1. You can inspect the files array directly
+    console.log("Files to upload:", files);
+
+    // 2. If you want to send them to an API, for example:
+    
+    const formData = new FormData();
+    files.forEach((fileObj) => {
+      formData.append("images", fileObj.file);
+    });
+    try {
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+      console.log(response.status)
+      response.status == 200? toast.success("Image uploaded!") : toast.error("Please subscribe first");
+
+    } catch (error) {
+        const errorMessage =
+          error.response?.data?.error ||
+          error.message ||
+          "Something went wrong";
+        toast.error(errorMessage);
+    }
+    
   };
 
   return (
@@ -129,7 +159,11 @@ export default function ImageUploader() {
       </div>
 
       <div className="flex justify-end space-x-4">
-        <button type="button" className="btn btn-primary">
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={handleUpload}
+        >
           Upload Now
         </button>
         <button type="button" className="btn btn-outline">

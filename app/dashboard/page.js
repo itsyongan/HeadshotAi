@@ -12,7 +12,7 @@ async function getUser() {
 
 	await connectMongo();
 
-	return await User.findById(session.user.id).populate("boards");
+	return await User.findById(session.user.id);
 }
 
 export default async function Dashboard() {

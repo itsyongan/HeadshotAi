@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import User from "@/models/User";
-import Board from "@/models/Board";
 
 const connectMongo = async () => {
 	try {

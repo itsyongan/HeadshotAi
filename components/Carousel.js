@@ -49,7 +49,7 @@ export default function Carousel() {
   return (
     <div
       ref={carouselRef}
-      className="w-85 overflow-hidden mx-auto" // narrower container
+      className="w-85 overflow-hidden mx-auto rounded-xl"
       style={{ whiteSpace: "nowrap" }}
     >
       <div className="flex">

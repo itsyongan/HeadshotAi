@@ -22,13 +22,6 @@ const userSchema = new mongoose.Schema({
 	customerId: {
 		type: String,
 	},
-
-	boards: [
-		{
-			type: mongoose.Schema.Types.ObjectId,
-			ref: "Board",
-		},
-	],
 });
 
 export default mongoose.models.User || mongoose.model("User", userSchema);
